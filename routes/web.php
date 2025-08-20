@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employer;
 use Illuminate\Support\Facades\Route;
 use App\Models\JobListing;
 
@@ -11,22 +12,29 @@ Route::get('/', function () {
         'title' => "Home"
     ]);
 });
+Route::get(uri:'/jobs/create', action: function(){
+    return view(view: 'jobs.create', data: [
+        'title'=> 'Create a Job'
+    ]);
+});
 
 Route::get('/job/{id}', function($id) {
     $job = JobListing::find( $id );
-    return view("job", [
+    return view("jobs.show", [
         'title' => "Jobs",
         'job' => $job
     ]);
 });
 
 Route::get(uri: '/jobs', action: function () {
-   
-    return view(view: "jobs", data: [
+   $joblistings = JobListing::with('employer')->paginate(10);
+    return view(view: "jobs.index", data: [
         'title' => "Jobs",
-        'jobs' => JobListing::all()
+        'jobs' => $joblistings
     ]);
 });
+
+
 
 Route::get('/contact', function() {
     return view('contact', ['title' => "Contact"]);

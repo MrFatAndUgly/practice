@@ -21,3 +21,5 @@ class TagFactory extends Factory
         ];
     }
 }
+
+// $tag->jobs()->attach(App\Models\JobListing::factory(10)->create());
