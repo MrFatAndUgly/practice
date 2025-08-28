@@ -13,7 +13,7 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        $tags = Tag::factory(10)->create();
+        $tags = Tag::factory(1)->create();
         foreach ($tags as $tag) {
             $tag->jobs()->attach(\App\Models\JobListing::factory(10)->create());
         }
